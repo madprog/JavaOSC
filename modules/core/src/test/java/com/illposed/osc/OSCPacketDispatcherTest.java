@@ -8,6 +8,8 @@
 
 package com.illposed.osc;
 
+import java.net.InetSocketAddress;
+
 import com.illposed.osc.utility.OSCPacketDispatcher;
 
 /**
@@ -36,7 +38,7 @@ public class OSCPacketDispatcherTest extends junit.framework.TestCase {
 
 	public void testDispatchToListener1() throws Exception {
 		OSCMessage message = new OSCMessage("/listener1");
-		dispatcher.dispatchPacket(message);
+		dispatcher.dispatchPacket(message, new InetSocketAddress(1234));
 		if (!listener1.isMessageReceived()) {
 			fail("Message to listener1 didn't get sent to listener1");
 		}
@@ -47,7 +49,7 @@ public class OSCPacketDispatcherTest extends junit.framework.TestCase {
 
 	public void testDispatchToListener2() throws Exception {
 		OSCMessage message = new OSCMessage("/listener2");
-		dispatcher.dispatchPacket(message);
+		dispatcher.dispatchPacket(message, new InetSocketAddress(1234));
 		if (listener1.isMessageReceived()) {
 			fail("Message to listener2 got sent to listener1");
 		}
@@ -58,7 +60,7 @@ public class OSCPacketDispatcherTest extends junit.framework.TestCase {
 
 	public void testDispatchToNobody() throws Exception {
 		OSCMessage message = new OSCMessage("/nobody");
-		dispatcher.dispatchPacket(message);
+		dispatcher.dispatchPacket(message, new InetSocketAddress(1234));
 		if (listener1.isMessageReceived() || listener2.isMessageReceived()) {
 			fail("Message to nobody got dispatched incorrectly");
 		}
@@ -68,7 +70,7 @@ public class OSCPacketDispatcherTest extends junit.framework.TestCase {
 		OSCBundle bundle = new OSCBundle();
 		bundle.addPacket(new OSCMessage("/listener1"));
 		bundle.addPacket(new OSCMessage("/listener2"));
-		dispatcher.dispatchPacket(bundle);
+		dispatcher.dispatchPacket(bundle, new InetSocketAddress(1234));
 		if (!listener1.isMessageReceived()) {
 			fail("Bundle didn't dispatch message to listener 1");
 		}

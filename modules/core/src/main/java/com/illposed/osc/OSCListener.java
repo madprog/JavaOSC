@@ -8,6 +8,7 @@
 
 package com.illposed.osc;
 
+import java.net.SocketAddress;
 import java.util.Date;
 
 /**
@@ -23,6 +24,6 @@ public interface OSCListener {
 	 *          <code>null</code> means execute now
 	 * @param message  The message to execute.
 	 */
-	public void acceptMessage(Date time, OSCMessage message);
+	public void acceptMessage(Date time, OSCMessage message, SocketAddress origin);
 
 }

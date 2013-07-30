@@ -10,6 +10,7 @@ package com.illposed.osc;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
 import java.io.IOException;
 import java.net.SocketException;
 
@@ -87,7 +88,7 @@ public class OSCPortIn extends OSCPort implements Runnable {
 				}
 				OSCPacket oscPacket = converter.convert(buffer,
 						packet.getLength());
-				dispatcher.dispatchPacket(oscPacket);
+				dispatcher.dispatchPacket(oscPacket, packet.getSocketAddress());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -8,6 +8,7 @@
 
 package com.illposed.osc;
 
+import java.net.SocketAddress;
 import java.util.Date;
 import org.junit.Ignore;
 
@@ -26,7 +27,7 @@ public class TestOSCListener implements OSCListener {
 	}
 
 	@Override
-	public void acceptMessage(Date time, OSCMessage message) {
+	public void acceptMessage(Date time, OSCMessage message, SocketAddress origin) {
 		messageReceived = true;
 		receivedTimestamp = time;
 	}
